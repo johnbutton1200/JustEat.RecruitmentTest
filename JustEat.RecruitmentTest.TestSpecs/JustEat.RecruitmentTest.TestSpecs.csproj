@@ -142,6 +142,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="TestData\IncorrectDeliveryEtaMinutesJsonSchema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\DeliveryEtaMinutesJsonSchema.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

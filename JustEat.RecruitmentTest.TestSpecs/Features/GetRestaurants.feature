@@ -25,3 +25,10 @@ Scenario: Validate DeliveryEtaMinutes schema
 	When I request the restaurants by postcode 'BS5 7JW'
 	Then the response status code is 'OK'
 	And the DeliveryEtaMinutes schema should be correct for each restaurant
+
+# This failing test was added to demonstrate the logging of the schema validation method when it fails
+Scenario: Failing validation of DeliveryEtaMinutes schema
+	Given I have a restaurants API
+	When I request the restaurants by postcode 'BS5 7JW'
+	Then the response status code is 'OK'
+	And the DeliveryEtaMinutes schema should deliberately fail

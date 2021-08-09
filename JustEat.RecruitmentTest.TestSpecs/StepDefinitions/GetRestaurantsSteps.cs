@@ -95,6 +95,24 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
 
             Assert.That(allJsonValidationMessages.Count, Is.EqualTo(0), "No validation messages should be present:\n" + string.Join("\n", allJsonValidationMessages));
         }
+
+        [Then(@"the DeliveryEtaMinutes schema should deliberately fail")]
+        public void ThenTheDeliveryEtaMinutesSchemaShouldDeliberatelyFail()
+        {
+            // Generates a JSchema from the provided schema
+            var expectedJsonSchema = JSchema.Parse(File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\IncorrectDeliveryEtaMinutesJsonSchema.json")));
+
+            // Generate a JObject from the request response content
+            var responseContentJObject = JObject.Parse(_scenarioContext.Get<IRestResponse>("response").Content);
+
+            // Generate a JToken from the Restaurants sub-object
+            var restaurantsJToken = responseContentJObject.GetValue("Restaurants");
+
+            // Passes previously generated variables into helper method that validates each restaurant's address against the schema
+            var allJsonValidationMessages = _schemaUtils.GetAllJsonValidationMessagesOfSubObject(restaurantsJToken, expectedJsonSchema, "DeliveryEtaMinutes");
+
+            Assert.That(allJsonValidationMessages.Count, Is.EqualTo(0), "No validation messages should be present:\n" + string.Join("\n", allJsonValidationMessages));
+        }
         
         [Then(@"all restaurants with more than 1 rating should have a star rating greater than 0")]
         public void ThenAllRestaurantsWithMoreThanRatingShouldHaveAStarRatingGreaterThan()
@@ -136,7 +154,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         [Given(@"I have performed a valid Get Restaurants request")]
         public void GivenIHavePerformedAValidGetRestaurantsRequest()
         {
-            // Do nothing because request is performed in once in [BeforeFeature] hook
+            // Do nothing because request is performed once in [BeforeFeature] hook
         }
 
         [Then(@"all Address field values are valid for each restaurant")]
