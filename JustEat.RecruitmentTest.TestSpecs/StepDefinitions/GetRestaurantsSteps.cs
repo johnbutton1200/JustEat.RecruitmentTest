@@ -18,13 +18,13 @@ using static JustEat.RecruitmentTest.RestClient.ResponseData.GetRestaurantsRespo
 namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
 {
     [Binding]
-    public class RestaurantsSteps : JustEatBase
+    public class GetRestaurantsSteps : JustEatBase
     {
         private readonly GetRestaurantsRequests _getRestaurantsRequests;
         private readonly ScenarioContext _scenarioContext;
         private readonly SchemaUtils _schemaUtils;
 
-        public RestaurantsSteps(GetRestaurantsRequests getRestaurantsRequests, ScenarioContext scenarioContext, SchemaUtils schemaUtils)
+        public GetRestaurantsSteps(GetRestaurantsRequests getRestaurantsRequests, ScenarioContext scenarioContext, SchemaUtils schemaUtils)
         {
             _getRestaurantsRequests = getRestaurantsRequests;
             _scenarioContext = scenarioContext;
@@ -35,7 +35,6 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         public void GivenIHaveARestaurantsApi()
         {
             // Do nothing
-            Log.Info("TEST LOG");
         }
         
         [When(@"I request the restaurants by postcode '(.*)'")]
