@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using JustEat.RecruitmentTest.RestClient.Base;
 using JustEat.RecruitmentTest.RestClient.Requests;
-using JustEat.RecruitmentTest.RestClient.Schemas;
+using JustEat.RecruitmentTest.RestClient.ResponseModels;
 using JustEat.RecruitmentTest.RestClient.Utils;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;

@@ -91,7 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\GetRestaurantsRequests.cs" />
     <Compile Include="ResponseData\GetResturantsResponseData.cs" />
-    <Compile Include="Schemas\GetResturantsSchema.cs" />
+    <Compile Include="ResponseModels\GetResturantsSchema.cs" />
     <Compile Include="Utils\SchemaUtils.cs" />
   </ItemGroup>
   <ItemGroup>

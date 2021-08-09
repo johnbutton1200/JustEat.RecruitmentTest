@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace JustEat.RecruitmentTest.RestClient.Schemas
+namespace JustEat.RecruitmentTest.RestClient.ResponseModels
 {
     public class GetRestaurantsSchema
     {
