@@ -1,5 +1,8 @@
 ﻿@singleRequest
-Feature: Get Resturants Functional Requirements
+Feature: Get Restaurants Functional Requirements
+	So that I can order food
+	As a API consumer
+	I want to be able to find restaurants in my area
 
 Scenario: All restaurants with more than 1 rating should have a star rating greater than 0
 	Given I have performed a valid Get Restaurants request

@@ -1,26 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BoDi;
+﻿using JustEat.RecruitmentTest.RestClient.Base;
 using RestSharp;
 using TechTalk.SpecFlow;
-using JustEat.RecruitmentTest.RestClient.Base;
+using static JustEat.RecruitmentTest.RestClient.ResponseData.GetRestaurantsResponseData;
 
 namespace JustEat.RecruitmentTest.TestSpecs.Hooks
 {
     [Binding]
     public class Hooks : JustEatBase
     {
-        //private readonly IObjectContainer objectContainer;
         private const string BaseUrl = "https://uk.api.just-eat.io";
         
-        public Hooks(IObjectContainer objectContainer)
-        {
-            //this.objectContainer = objectContainer;
-        }
-
         [BeforeTestRun]
         public static void InitialiseJustEatRestClient()
         {
@@ -31,13 +20,12 @@ namespace JustEat.RecruitmentTest.TestSpecs.Hooks
         [BeforeFeature("singleRequest")]
         public static void ExecuteValidGetRestaurantsRequest()
         {
-            const string resource = "/restaurants/bypostcode/{postcode}";
-
-            var request = new RestRequest(resource, Method.GET)
-                .AddUrlSegment("postcode", "BS5 7JW");
+            const string validPostcode = "BS1 4DJ";
+            var request = new RestRequest(GetRestaurantsResource, Method.GET)
+                .AddUrlSegment("postcode", validPostcode);
             var response = Client.Execute(request);
             Log.Info($"Executed GetRestaurants request for:Resource: \n{request.Resource}\nUrlSegment: {request.Parameters}");
-            StaticRequestResponse = response;
+            GetRestaurantsResponse = response;
         }
     }
 }

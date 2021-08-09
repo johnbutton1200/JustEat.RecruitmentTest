@@ -1,0 +1,21 @@
+﻿{
+  "properties": {
+    "Approximate": {
+      "type": [
+        "integer",
+        "null" 
+      ]
+    },
+    "RangeLower": {
+      "type": "integer"
+    },
+    "RangeUpper": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "RangeLower",
+    "RangeUpper"
+  ],
+  "additionalProperties": false
+}

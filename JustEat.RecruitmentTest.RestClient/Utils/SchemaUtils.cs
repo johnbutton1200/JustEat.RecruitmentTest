@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
@@ -10,15 +7,16 @@ namespace JustEat.RecruitmentTest.RestClient.Utils
 {
     public class SchemaUtils
     {
-        public IList<string> GetAllJsonValidationMessages(JToken jToken, JSchema jSchema)
+        // Reusable method that validates all specified subobjects in a JToken (e.g. Restaurants) against a JSchema
+        public IList<string> GetAllJsonValidationMessagesOfSubObject(JToken jToken, JSchema jSchema, string subObject)
         {
             IList<string> allJsonValidationMessages = new List<string>();
 
-            foreach (var restaurant in jToken.Children())
+            foreach (var child in jToken.Children())
             {
-                var address = restaurant.SelectToken("Address");
-                (address ?? throw new InvalidOperationException("Address is null")).IsValid(jSchema, out IList<string> messages);
-                if (messages.Count <= 0) continue;
+                var selectToken = child.SelectToken(subObject);
+                (selectToken ?? throw new InvalidOperationException($"{subObject} is null")).IsValid(jSchema, out IList<string> messages);
+                if (messages.Count == 0) continue;
                 foreach (var message in messages)
                 {
                     allJsonValidationMessages.Add(message);

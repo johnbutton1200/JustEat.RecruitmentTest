@@ -6,13 +6,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using JustEat.RecruitmentTest.RestClient.Base;
 using JustEat.RecruitmentTest.RestClient.Requests;
-using JustEat.RecruitmentTest.RestClient.Schemas.Restaurants;
+using JustEat.RecruitmentTest.RestClient.Schemas;
 using JustEat.RecruitmentTest.RestClient.Utils;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using NUnit.Framework;
 using RestSharp;
 using TechTalk.SpecFlow;
+using static JustEat.RecruitmentTest.RestClient.ResponseData.GetRestaurantsResponseData;
 
 namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
 {
@@ -34,6 +35,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         public void GivenIHaveARestaurantsApi()
         {
             // Do nothing
+            Log.Info("TEST LOG");
         }
         
         [When(@"I request the restaurants by postcode '(.*)'")]
@@ -49,27 +51,52 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
             Assert.That(statusCode, Is.EqualTo(expectedStatusCode), "Status code is " + expectedStatusCode);
         }
 
-        // This is an alternative to the above step scoped to "singleRequest" tag only, where
+        // This is an alternative to the above step scoped to "singleRequest" feature tag only, where
         // the response is obtained from the request performed in the [BeforeFeature] hook
         [Then(@"the response status code is '(.*)'"), Scope(Tag = "singleRequest")]
         public void StaticThenTheResponseStatusCodeIs(HttpStatusCode expectedStatusCode)
         {
-            var response = StaticRequestResponse;
+            var response = GetRestaurantsResponse;
             _scenarioContext["response"] = response;
-            Assert.That(response.StatusCode, Is.EqualTo(expectedStatusCode), 
-                $"Status code should be {expectedStatusCode} but was {response.StatusCode}");
+            Assert.That(response.StatusCode, Is.EqualTo(expectedStatusCode), $"Status code should be {expectedStatusCode}");
         }
 
         [Then(@"the Address schema should be correct for each restaurant")]
         public void ThenTheAddressSchemaShouldBeCorrectForEachRestaurant()
         {
+            // Generates a JSchema from the provided schema
+            var expectedJsonSchema = JSchema.Parse(File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\AddressJsonSchema.json")));
+            
+            // Generate a JObject from the request response content
             var responseContentJObject = JObject.Parse(_scenarioContext.Get<IRestResponse>("response").Content);
+            
+            // Generate a JToken from the Restaurants sub-object
             var restaurantsJToken = responseContentJObject.GetValue("Restaurants");
-            var expectedJsonSchema = JSchema.Parse(File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\ExpectedJsonSchema.json")));
-            var allJsonValidationMessages = _schemaUtils.GetAllJsonValidationMessages(restaurantsJToken, expectedJsonSchema);
+
+            // Passes previously generated variables into helper method that validates each restaurant's address against the schema
+            var allJsonValidationMessages = _schemaUtils.GetAllJsonValidationMessagesOfSubObject(restaurantsJToken, expectedJsonSchema, "Address");
+            
             Assert.That(allJsonValidationMessages.Count, Is.EqualTo(0), "No validation messages should be present:\n" + string.Join("\n", allJsonValidationMessages));
         }
 
+        [Then(@"the DeliveryEtaMinutes schema should be correct for each restaurant")]
+        public void ThenTheDeliveryEtaMinutesSchemaShouldBeCorrectForEachRestaurant()
+        {
+            // Generates a JSchema from the provided schema
+            var expectedJsonSchema = JSchema.Parse(File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\DeliveryEtaMinutesJsonSchema.json")));
+
+            // Generate a JObject from the request response content
+            var responseContentJObject = JObject.Parse(_scenarioContext.Get<IRestResponse>("response").Content);
+
+            // Generate a JToken from the Restaurants sub-object
+            var restaurantsJToken = responseContentJObject.GetValue("Restaurants");
+
+            // Passes previously generated variables into helper method that validates each restaurant's address against the schema
+            var allJsonValidationMessages = _schemaUtils.GetAllJsonValidationMessagesOfSubObject(restaurantsJToken, expectedJsonSchema, "DeliveryEtaMinutes");
+
+            Assert.That(allJsonValidationMessages.Count, Is.EqualTo(0), "No validation messages should be present:\n" + string.Join("\n", allJsonValidationMessages));
+        }
+        
         [Then(@"all restaurants with more than 1 rating should have a star rating greater than 0")]
         public void ThenAllRestaurantsWithMoreThanRatingShouldHaveAStarRatingGreaterThan()
         {
@@ -107,17 +134,6 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
                 "Status code of restaurant URL request is: OK");
         }
         
-        [Then(@"the Restaurants schema should be correct in the response with all fields required")]
-        public void ThenTheRestaurantsSchemaShouldBeCorrectInTheResponseWithAllFieldsRequired()
-        {
-            var jObject = JObject.Parse(_scenarioContext.Get<IRestResponse>("response").Content);
-            var restaurantsSubObject = jObject.GetValue("Restaurants");
-
-            var jsonSchema = JSchema.Parse(File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\UpdatedJsonSchema.json")));
-            var allJsonValidationMessages = _schemaUtils.GetAllJsonValidationMessages(restaurantsSubObject, jsonSchema);
-            Assert.That(allJsonValidationMessages.Count, Is.EqualTo(0), "No validation messages should be present:\n" + string.Join("\n", allJsonValidationMessages));
-        }
-
         [Given(@"I have performed a valid Get Restaurants request")]
         public void GivenIHavePerformedAValidGetRestaurantsRequest()
         {
