@@ -1,0 +1,23 @@
+﻿{
+  "properties": {
+    "City": {
+      "type": "string",
+      "description": "City name"
+    },
+    "FirstLine": {
+      "type": "string",
+      "description": "First line of address"
+    },
+    "Postcode": {
+      "type": "string"
+    },
+    "Latitude": {
+      "type": "number",
+      "format": "decimal"
+    },
+    "Longitude": {
+      "type": "number",
+      "format": "decimal"
+    }
+  }
+}
