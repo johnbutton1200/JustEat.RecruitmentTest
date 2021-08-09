@@ -7,7 +7,7 @@ namespace JustEat.RecruitmentTest.RestClient.Utils
 {
     public class SchemaUtils
     {
-        // Reusable method that validates all specified subobjects in a JToken (e.g. Restaurants) against a JSchema
+        // Reusable method that validates all instances of a specified sub-object in a JToken against a JSchema
         public IList<string> GetAllJsonValidationMessagesOfSubObject(JToken jToken, JSchema jSchema, string subObject)
         {
             IList<string> allJsonValidationMessages = new List<string>();
@@ -15,6 +15,8 @@ namespace JustEat.RecruitmentTest.RestClient.Utils
             foreach (var child in jToken.Children())
             {
                 var selectToken = child.SelectToken(subObject);
+
+                // If schema is invalid, validation messages are added to allJsonValidationMessages
                 (selectToken ?? throw new InvalidOperationException($"{subObject} is null")).IsValid(jSchema, out IList<string> messages);
                 if (messages.Count == 0) continue;
                 foreach (var message in messages)
