@@ -9,7 +9,7 @@
 
 ## How to use
 - Extract all files into a local folder
-- Open JustEat.RecruitmentTest.TestSpecs.sln in Visual Studio
+- Open `JustEat.RecruitmentTest.TestSpecs.sln` in Visual Studio
 - Build solution to allow NuGet packages to install
 
 ### Solution overview
@@ -50,7 +50,10 @@ I created an additional JSON schema `DeliveryEtaMinutesJsonSchema.json` to valid
 This was an additional test I created to demonstrate a failing test and the validation errors that are logged when this happens. I validate this against a modified version of the schema `IncorrectDeliveryEtaMinutesJsonSchema.json` with the null type removed from the `Approximate` field.
 
 ### Get Restaurants Functional Requirements
-I interpreted task **2** as verifying each of those functional requirements with a single request only. I used the SpecFlow [BeforeFeature] binding to ensure one request was made and all tests were able to access the response to verify the requirements as seperate tests.
+I interpreted task **2** as verifying all of the specified functional requirements with a single request only. I used the SpecFlow `[BeforeFeature]` binding scoped to the feature tag `singleRequest` on a static method to ensure one request was made and all tests were able to access the response to verify the requirements as seperate tests.
 
 ## LivingDoc report
-I included a SpecFlow LivingDoc generated test report in [TestReport/JustEatRecruitmentTestReport.html](TestReport/JustEatRecruitmentTestReport.html) that allows sharing of a the test features and test results in a single .html file. I've found this to be a excellent way of sharing test details with stakeholders who make not have access to test build systems.
+I included a SpecFlow LivingDoc generated test report in [TestReport/JustEatRecruitmentTestReport.html](TestReport/JustEatRecruitmentTestReport.html) that allows sharing of a the test features and test results in a single .html file. I've found this to be a excellent way of sharing test details with stakeholders who may not have access to test build systems.
+
+## Answers to technical questions
+The answers to the techincal questions can be found [here](AnswersToTechnicalQuestions.md).

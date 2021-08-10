@@ -1,7 +1,5 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using NUnit.Framework;
 
 [assembly: AssemblyTitle("JustEat.RecruitmentTest")]
 [assembly: AssemblyDescription("")]

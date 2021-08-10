@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace JustEat.RecruitmentTest.RestClient.ResponseModels
 {
-    public class GetRestaurantsSchema
+    public class GetRestaurantsResponseModel
     {
         [JsonProperty("Restaurants")]
         public List<Restaurant> Restaurants { get; set; }

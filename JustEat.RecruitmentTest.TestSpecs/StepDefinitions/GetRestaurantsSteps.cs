@@ -117,7 +117,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         [Then(@"all restaurants with more than 1 rating should have a star rating greater than 0")]
         public void ThenAllRestaurantsWithMoreThanRatingShouldHaveAStarRatingGreaterThan()
         {
-            var responseContent = Deserializer.Deserialize<GetRestaurantsSchema>(_scenarioContext.Get<IRestResponse>("response"));
+            var responseContent = Deserializer.Deserialize<GetRestaurantsResponseModel>(_scenarioContext.Get<IRestResponse>("response"));
 
             foreach (var restaurant in responseContent.Restaurants.Where(restaurant => restaurant.NumberOfRatings > 1))
             {
@@ -129,7 +129,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         public void ThenAllTheRestaurantsWithNoRatingsShouldHaveAStarRatingOf()
         {
             var response = _scenarioContext.Get<IRestResponse>("response");
-            var responseContent = Deserializer.Deserialize<GetRestaurantsSchema>(response);
+            var responseContent = Deserializer.Deserialize<GetRestaurantsResponseModel>(response);
             
             foreach (var restaurant in responseContent.Restaurants.Where(restaurant => restaurant.NumberOfRatings == 0))
             {
@@ -141,7 +141,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         public void ThenTheFirstRestaurantReturnedWillHaveAValidUrl()
         {
             var response = _scenarioContext.Get<IRestResponse>("response");
-            var responseContent = Deserializer.Deserialize<GetRestaurantsSchema>(response);
+            var responseContent = Deserializer.Deserialize<GetRestaurantsResponseModel>(response);
             var restaurantUrl = responseContent.Restaurants[0].Url;
 
             var httpClient = new HttpClient();
@@ -161,7 +161,7 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
         public void ThenAllAddressFieldValuesAreValidForEachRestaurant()
         {
             var response = _scenarioContext.Get<IRestResponse>("response");
-            var responseContent = Deserializer.Deserialize<GetRestaurantsSchema>(response).Restaurants;
+            var responseContent = Deserializer.Deserialize<GetRestaurantsResponseModel>(response).Restaurants;
             Assert.IsNotNull(responseContent);
             Assert.Multiple(() =>
             {

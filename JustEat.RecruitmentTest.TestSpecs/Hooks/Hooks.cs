@@ -1,5 +1,6 @@
 ﻿using JustEat.RecruitmentTest.RestClient.Base;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 using TechTalk.SpecFlow;
 using static JustEat.RecruitmentTest.RestClient.ResponseData.GetRestaurantsResponseData;
 
@@ -11,7 +12,9 @@ namespace JustEat.RecruitmentTest.TestSpecs.Hooks
         [BeforeTestRun]
         public static void InitialiseJustEatRestClient()
         {
-            Client = new RestSharp.RestClient(BaseUrl);
+            // This initialises the client and tells RestSharp to use Newtonsoft
+            // serialization so errors are not swallowed by RestSharp's serializer
+            Client = new RestSharp.RestClient(BaseUrl).UseNewtonsoftJson();
             Log.Info("JustEat Rest Client initialised with baseUrl: " + BaseUrl);
         }
 
