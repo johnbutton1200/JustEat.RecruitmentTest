@@ -15,7 +15,7 @@ I have done this before and I believe the key point is to focus on the areas of 
 
 ## How would you improve the customer experience of the Just Eat website?
 - Ability to sort/filter by delivery time estimate.
-- See similar resturants on a resturant page.
-- Resturant recommendations based on previous orders (this may exist but I haven't noticed it).
+- See similar restaurants on a restaurant page.
+- Restaurant recommendations based on previous orders (this may exist but I haven't noticed it).
 - Ability to split payments with others.
-- Standardised dietary labelling/iconography for food items such as vegan, vegatarian, gluten free etc. This could even be filtered at a menu level.
+- Standardised dietary labelling/iconography for food items such as vegan, vegatarian, gluten free etc. This could even be filtered at a restaurant/menu level.
