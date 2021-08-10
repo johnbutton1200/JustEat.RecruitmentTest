@@ -8,8 +8,6 @@ namespace JustEat.RecruitmentTest.TestSpecs.Hooks
     [Binding]
     public class Hooks : JustEatBase
     {
-        private const string BaseUrl = "https://uk.api.just-eat.io";
-        
         [BeforeTestRun]
         public static void InitialiseJustEatRestClient()
         {

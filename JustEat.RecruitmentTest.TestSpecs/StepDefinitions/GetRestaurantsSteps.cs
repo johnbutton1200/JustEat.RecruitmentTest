@@ -50,8 +50,8 @@ namespace JustEat.RecruitmentTest.TestSpecs.StepDefinitions
             Assert.That(statusCode, Is.EqualTo(expectedStatusCode), "Status code is " + expectedStatusCode);
         }
 
-        // This is an alternative to the above step scoped to "singleRequest" feature tag only, where
-        // the response is obtained from the request performed in the [BeforeFeature] hook
+        // This is an alternative to the above step scoped to "singleRequest" feature tag only,
+        // where the response is obtained from the request performed in the [BeforeFeature] hook
         [Then(@"the response status code is '(.*)'"), Scope(Tag = "singleRequest")]
         public void StaticThenTheResponseStatusCodeIs(HttpStatusCode expectedStatusCode)
         {

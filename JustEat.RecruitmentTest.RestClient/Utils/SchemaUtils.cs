@@ -27,6 +27,5 @@ namespace JustEat.RecruitmentTest.RestClient.Utils
 
             return allJsonValidationMessages;
         }
-
     }
 }
