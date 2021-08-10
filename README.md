@@ -18,7 +18,7 @@ There are two projects within the solution:
 #### JustEat.RecruitmentTest.TestSpecs
 This project contains the feature files, step definitions, test data and hooks. SpecFlow and NUnit 3 are the core frameworks used in this project.
 
-### JustEat.RecruitmentTest.RestClient
+#### JustEat.RecruitmentTest.RestClient
 This project contains all the REST client related classes including requests, response models, helper utilities etc. The project makes heavy use of RestSharp and Newtonsoft.Json.
 
 ### Run tests
@@ -56,4 +56,4 @@ I interpreted task **2** as verifying all of the specified functional requiremen
 I included a SpecFlow LivingDoc generated test report in [TestReport/JustEatRecruitmentTestReport.html](TestReport/JustEatRecruitmentTestReport.html) that allows sharing of a the test features and test results in a single .html file. I've found this to be a excellent way of sharing test details with stakeholders who may not have access to test build systems.
 
 ## Answers to technical questions
-The answers to the techincal questions can be found [here](AnswersToTechnicalQuestions.md).
+The answers to the techincal questions can be found [here](answers-to-technical-questions.md).
